@@ -43,6 +43,7 @@ public class App extends Application {
                
         ComboBox<Integer> combo = new ComboBox<>();
         combo.getItems().addAll(1,2,3,4,5,6,7,8,9,10);
+        combo.setPromptText("Amount");
         
         RadioButton radio1 = new RadioButton("Small");
         radio1.setUserData("Small");
@@ -69,8 +70,10 @@ public class App extends Application {
         });
 
         clearBtn.setOnAction(event -> {
-            
             messageLabel.setText("");
+            list.getSelectionModel().clearSelection();
+            combo.getSelectionModel().clearSelection();
+            radioGroup.selectToggle(null);
         });
         VBox radios = new VBox();
         radios.getChildren().addAll(radiosTitle, radio1, radio2, radio3);
@@ -80,11 +83,16 @@ public class App extends Application {
         hboxTitle.getChildren().addAll(hBoxTitle);
         
         HBox hbox = new HBox();
-        hbox.getChildren().addAll(radios, combo, orderBtn, clearBtn);
+        hbox.getChildren().addAll(radios, combo);
+        hbox.setSpacing(10);
+        hbox.setLayoutX(10);
+        
+        HBox hbox2 = new HBox();
+        hbox2.getChildren().addAll(orderBtn, clearBtn);
         hbox.setPadding(new Insets (20));
         hbox.setSpacing(10);
         
-        root.getChildren().addAll(title, list, hboxTitle, hbox, messageLabel);
+        root.getChildren().addAll(title, list, hboxTitle, hbox, hbox2, messageLabel);
         var scene = new Scene(root, 640, 480);
         stage.setScene(scene);
         stage.show();
